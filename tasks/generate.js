@@ -45,9 +45,14 @@ module.exports = function(grunt) {
       var templateFile = grunt.file.read(sourcePath);
       grunt.verbose.writeln('Options:', options);
       grunt.verbose.writeln("Read:", sourcePath);
-      var fileContent = grunt.template.process(templateFile,{data:options});
-      grunt.file.write(destinationPath, fileContent);
-      grunt.log.writeln('Generated:', destinationPath);
+     if(! grunt.file.exists(destinationPath)){
+        var fileContent = grunt.template.process(templateFile,{data:options});
+         grunt.file.write(destinationPath, fileContent);
+        grunt.log.writeln('Generated:', destinationPath);
+      }
+      else{
+        grunt.log.writeln('Error: File exists at:'+ destinationPath+ '! It was not created');
+      }
   });
 
 };
